@@ -1,0 +1,78 @@
+# RM Cleaning Pro - Hostinger (Apache/LiteSpeed)
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+# ---------- HTTPS + dominio sem www (uma URL canonica so) ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://rmcleaningprollc.com%{REQUEST_URI} [L,R=301]
+
+  # Markdown para agentes de IA: pedido da home com "Accept: text/markdown"
+  # recebe /index.md (mesmo conteudo, sem HTML). Navegador continua com HTML.
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteRule ^$ /index.md [L]
+</IfModule>
+
+# ---------- tipos ----------
+AddType font/woff2 .woff2
+AddType image/webp .webp
+AddType image/svg+xml .svg
+AddType text/vcard .vcf
+AddType text/markdown .md
+AddCharset utf-8 .md .txt
+
+# ---------- descoberta por agentes (RFC 8288) ----------
+<IfModule mod_headers.c>
+  # home (e os demais index.html, sem prejuizo): aponta llms.txt, a versao
+  # Markdown e o sitemap. Vary: a mesma URL pode responder HTML ou Markdown.
+  <FilesMatch "^index\.html$">
+    Header set Link "</llms.txt>; rel=\"describedby\"; type=\"text/plain\", </index.md>; rel=\"alternate\"; type=\"text/markdown\", </sitemap.xml>; rel=\"sitemap\"; type=\"application/xml\""
+    Header append Vary "Accept"
+  </FilesMatch>
+  # versao Markdown: canonical para a home (nao competir com ela no Google)
+  <FilesMatch "^index\.md$">
+    Header set Link "<https://rmcleaningprollc.com/>; rel=\"canonical\""
+    Header append Vary "Accept"
+  </FilesMatch>
+</IfModule>
+
+# cartao de contato baixa em vez de abrir como texto
+<FilesMatch "\.vcf$">
+  Header set Content-Disposition "attachment; filename=rm-cleaning-pro.vcf"
+</FilesMatch>
+
+# ---------- seguranca basica ----------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+# ---------- compressao ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript image/svg+xml application/xml text/plain text/markdown
+</IfModule>
+
+# ---------- cache ----------
+# Os nomes de arquivo NAO tem hash: trocar uma imagem/fonte = renomear o
+# arquivo, senao quem ja visitou continua vendo a versao antiga.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/javascript "access plus 1 week"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>

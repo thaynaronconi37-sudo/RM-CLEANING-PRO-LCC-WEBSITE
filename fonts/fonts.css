@@ -1,0 +1,36 @@
+/* ============================================================
+   RM CLEANING PRO - fontes servidas do proprio dominio
+
+   Gerado por gera-fontes.ps1. Nao editar a mao: rodar de novo.
+
+   Por que nao usar o Google Fonts direto: cada <link> para
+   fonts.googleapis.com custa duas conexoes novas antes de a
+   primeira letra aparecer. Servindo daqui, vem na mesma conexao.
+
+   Os url() sao RELATIVOS a este arquivo de proposito: a pasta
+   fonts/ funciona igual para /, /thanks/, /redirect/ etc.
+   ============================================================ */
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:italic;
+  font-weight:500;
+  font-display:swap;
+  src:url('jakarta-italic.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:400 700;
+  font-display:swap;
+  src:url('jakarta.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Playfair Display';
+  font-style:italic;
+  font-weight:500 600;
+  font-display:swap;
+  src:url('playfair-italic.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

@@ -1,0 +1,19 @@
+# RM Cleaning Pro LLC - https://rmcleaningprollc.com
+#
+# Tudo liberado para busca e para IAs (Google, Bing, ChatGPT, Perplexity...).
+# Para um negocio local, ser encontrado e citado = mais leads.
+#
+# Content-Signal (contentsignals.org) NAO foi usado de proposito: o Lighthouse
+# trata como "Unknown directive" e derruba o SEO do PageSpeed de 100 para 92.
+# Sem o sinal nada e bloqueado: os agentes leem e citam o site normalmente.
+#
+# /thanks/ e /redirect/ NAO ficam bloqueados aqui de proposito: as duas
+# paginas tem <meta name="robots" content="noindex">, e o Google so obedece
+# o noindex se puder rastrear a pagina.
+#
+# Resumo do negocio para IAs: https://rmcleaningprollc.com/llms.txt
+
+User-agent: *
+Allow: /
+
+Sitemap: https://rmcleaningprollc.com/sitemap.xml
